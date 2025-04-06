@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/DenisOzindzheDev/mgmt-file-transfer/internal/config"
 	"github.com/gin-gonic/gin"
 )
 
@@ -34,5 +35,14 @@ func main() {
 		0001 + 0010 = 0011
 		так передав в setFlags (0011) логер будет понимать что включены флаги 1 и 2
 	*/
+	// Вывод версии сервера в лог
+	// os.Getenv("SERVER_VERSION") - получает значение переменной окружения SERVER_VERSION
+	// если переменной нет то вернет пустую строку
 	log.Printf("Starting file-transfer server: v%s", os.Getenv("SERVER_VERSION"))
+
+	cfg, err := config.Load()
+	if err != nil {
+		log.Fatalf("Failed to load config: %v", err)
+	}
+	log.Printf("Config loaded: %s", cfg.BaseURL)
 }
