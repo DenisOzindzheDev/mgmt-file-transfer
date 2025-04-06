@@ -112,15 +112,5 @@ func Load() (*Config, error) {
 	} else if !os.IsNotExist(err) {
 		return nil, err
 	}
-
-	// Создание директории для хранения данных, если она не существует
-	// Если директория уже существует, то ошибки не будет
-	if err := os.MkdirAll(cfg.DataDir, 0755); err != nil {
-		return nil, err
-	}
-	if err := os.MkdirAll(cfg.BackupDir, 0755); err != nil {
-		return nil, err
-	}
-
 	return cfg, nil
 }

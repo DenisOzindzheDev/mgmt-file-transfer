@@ -45,4 +45,11 @@ func main() {
 		log.Fatalf("Failed to load config: %v", err)
 	}
 	log.Printf("Config loaded: %s", cfg.BaseURL)
+	// Проверка наличия директорий и создание их, если они не существуют
+	dirs := []string{cfg.DataDir, cfg.BackupDir}
+	for _, dir := range dirs {
+		if err := os.MkdirAll(dir, 0755); err != nil {
+			log.Fatalf("Failed to create directory: %v", err)
+		}
+	}
 }
