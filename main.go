@@ -5,12 +5,17 @@ import (
 	"os"
 
 	"github.com/DenisOzindzheDev/mgmt-file-transfer/internal/config"
+	"github.com/DenisOzindzheDev/mgmt-file-transfer/pkg/collorwriter"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	// Установка gin в release mode
-	gin.SetMode(gin.ReleaseMode)
+	if os.Getenv("GIN_MODE") == "release" {
+		gin.SetMode(gin.ReleaseMode)
+	} else {
+		log.SetOutput(&collorwriter.ColorWriter{W: os.Stdout})
+	}
 	// LstdFlags - ставит в лог время, Lshotfile - включает в логере параметр который указывает где сработал лог (к примеру об ошибке)
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 	/*
